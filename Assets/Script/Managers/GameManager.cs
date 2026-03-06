@@ -31,8 +31,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(status == GameStatus.GameRunning) { Time.timeScale = 1.0f; }
+        if(status == GameStatus.GameRunning) { Time.timeScale = 1.0f; return; }
         
-        if(status == GameStatus.GamePaused) { Time.timeScale = 0f; }
+        else if(status == GameStatus.GamePaused) { Time.timeScale = 0f; return; }
     }
 }
