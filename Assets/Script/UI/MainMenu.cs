@@ -6,6 +6,9 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField] TMP_Text totalCoins;
     [SerializeField] GameObject startText;
+    [SerializeField] GameObject optionsMenu;
+    [SerializeField] GameObject mainUI;
+    [SerializeField] AudioClip buttonSFX;
     public float rotationSpeed;
     public float maxAngle;
     float time;
@@ -27,5 +30,19 @@ public class MainMenu : MonoBehaviour
         {
             SceneManager.LoadScene(1);
         }
+    }
+
+    public void OpenOptionsMenu()
+    {
+        SoundFXManager.instance.PlaySoundFXClip(buttonSFX, transform, 1f);
+        optionsMenu.SetActive(true);
+        mainUI.SetActive(false);
+    }
+
+    public void CloseOptionsMenu()
+    {
+        SoundFXManager.instance.PlaySoundFXClip(buttonSFX, transform, 1f);
+        optionsMenu.SetActive(false);
+        mainUI.SetActive(true);
     }
 }

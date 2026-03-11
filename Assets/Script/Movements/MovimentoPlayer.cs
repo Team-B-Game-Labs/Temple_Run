@@ -7,8 +7,8 @@ public class MovimentoPlayer : MonoBehaviour
     [SerializeField] private float laneWidth = 2.0f;
 
     [Header("Salto")]
-    [SerializeField] private float jumpDuration = 0.6f; 
-    [SerializeField] private float jumpHeight = 2.0f;   
+    [SerializeField] private float jumpDuration = 0.6f;
+    [SerializeField] private float jumpHeight = 2.0f;
 
     private Vector3 startPos;
     private Vector3 targetPos;
@@ -18,7 +18,7 @@ public class MovimentoPlayer : MonoBehaviour
     private int currentLocation = 1;
     private bool isMoving = false;
     private bool isJumping = false;
-    private float groundY; 
+    private float groundY;
 
     private void Start()
     {
@@ -43,6 +43,18 @@ public class MovimentoPlayer : MonoBehaviour
         UpdateMovement();
     }
 
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision != null)
+        {
+            collision.gameObject.TryGetComponent(out ICoin coin);
+
+            coin.Collected();
+
+
+        }
+
+    }
     private void HandleLateralInput()
     {
         if (Input.GetKeyDown(KeyCode.A))
