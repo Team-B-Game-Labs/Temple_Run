@@ -1,68 +1,100 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class MovimentoPlayer : MonoBehaviour
 {
+    [Header("Movimento Laterale")]
+    [SerializeField] private float duration = 0.2f;
+    [SerializeField] private float laneWidth = 2.0f;
+
+    [Header("Salto")]
+    [SerializeField] private float jumpDuration = 0.6f; 
+    [SerializeField] private float jumpHeight = 2.0f;   
+
     private Vector3 startPos;
     private Vector3 targetPos;
-    [SerializeField] private float duration = 0.2f;
-    private float timer;
-    private int currentLocation = 1; // 1: Centro, 2: Sinistra, 3: Destra
+    private float moveTimer;
+    private float jumpTimer;
+
+    private int currentLocation = 1;
     private bool isMoving = false;
+    private bool isJumping = false;
+    private float groundY; 
 
     private void Start()
     {
-        // Inizializza le posizioni per evitare salti bruschi all'avvio
+        groundY = transform.position.y;
         startPos = transform.position;
         targetPos = transform.position;
     }
 
     private void Update()
     {
-        // 1. INPUT: Solo se non ci stiamo già muovendo
-        if (!isMoving)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)) && !isJumping)
         {
-            switch (currentLocation)
-            {
-                case 1: // CENTRO
-                    if (Input.GetKeyDown(KeyCode.A)) SetMove(2, -1f); // Vai a Sinistra
-                    else if (Input.GetKeyDown(KeyCode.D)) SetMove(3, 1f); // Vai a Destra
-                    break;
-
-                case 2: // SINISTRA
-                    if (Input.GetKeyDown(KeyCode.D)) SetMove(1, 0f); // Torna al Centro
-                    break;
-
-                case 3: // DESTRA
-                    if (Input.GetKeyDown(KeyCode.A)) SetMove(1, 0f); // Torna al Centro
-                    break;
-            }
+            isJumping = true;
+            jumpTimer = 0f;
         }
 
-        // 2. MOVIMENTO: Viene eseguito ogni frame se isMoving è true
-        if (isMoving)
+        if (!isMoving)
         {
-            timer += Time.deltaTime;
-            float t = timer / duration;
+            HandleLateralInput();
+        }
 
-            transform.position = Vector3.Lerp(startPos, targetPos, t);
+        UpdateMovement();
+    }
 
-            if (t >= 1f)
-            {
-                transform.position = targetPos; // Snapping finale
-                isMoving = false;
-                timer = 0f;
-            }
+    private void HandleLateralInput()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            if (currentLocation == 1) SetMove(2, -laneWidth);
+            else if (currentLocation == 3) SetMove(1, 0f);
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            if (currentLocation == 1) SetMove(3, laneWidth);
+            else if (currentLocation == 2) SetMove(1, 0f);
         }
     }
 
-    // Funzione di supporto per pulire lo switch
+    private void UpdateMovement()
+    {
+        float currentX = transform.position.x;
+        if (isMoving)
+        {
+            moveTimer += Time.deltaTime;
+            float t = Mathf.Clamp01(moveTimer / duration);
+            currentX = Mathf.Lerp(startPos.x, targetPos.x, Mathf.SmoothStep(0, 1, t));
+
+            if (t >= 1f) isMoving = false;
+        }
+
+        float currentY = groundY;
+        if (isJumping)
+        {
+            jumpTimer += Time.deltaTime;
+            float tJump = jumpTimer / jumpDuration;
+
+            if (tJump >= 1f)
+            {
+                isJumping = false;
+                currentY = groundY;
+            }
+            else
+            {
+                currentY = groundY + (4 * jumpHeight * tJump * (1 - tJump));
+            }
+        }
+
+        transform.position = new Vector3(currentX, currentY, transform.position.z);
+    }
+
     private void SetMove(int newLocation, float targetX)
     {
         startPos = transform.position;
-        targetPos = new Vector3(targetX, transform.position.y, transform.position.z);
+        targetPos = new Vector3(targetX, groundY, transform.position.z);
         currentLocation = newLocation;
-        timer = 0f;
+        moveTimer = 0f;
         isMoving = true;
     }
 }
