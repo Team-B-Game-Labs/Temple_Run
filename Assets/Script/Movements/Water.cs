@@ -16,6 +16,6 @@ public class Water : MonoBehaviour
     {
         float offset = Time.time * scrollSpeed;
 
-        rend.material.mainTextureOffset = new Vector2(offset, - offset);
+        rend.material.mainTextureOffset = new Vector2(0, - offset);
     }
 }
