@@ -47,9 +47,9 @@ public class MovimentoPlayer : MonoBehaviour
     {
         if (collision != null)
         {
-            collision.gameObject.TryGetComponent(out ICoin coin);
+            collision.gameObject.TryGetComponent(out ICollider coin);
 
-            coin.Collected();
+            coin.Collided();
 
 
         }

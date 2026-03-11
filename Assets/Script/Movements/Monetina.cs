@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Monetina : MonoBehaviour, ICoin
+public class Monetina : MonoBehaviour, ICollider
 {
     [SerializeField] float rotationSpeed;
     [SerializeField] AudioClip coinSFX;
@@ -19,7 +19,7 @@ public class Monetina : MonoBehaviour, ICoin
         
     }
 
-    public void Collected()
+    public void Collided()
     {
         SoundFXManager.instance.PlaySoundFXClip(coinSFX, transform, 1f);
         GameManager.instance.currentCoins++;
