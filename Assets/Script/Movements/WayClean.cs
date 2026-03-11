@@ -11,6 +11,6 @@ public class WayClean : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         other.gameObject.SetActive(false);
-        poolTime.GetWall(new Vector3(0, 0, 10.3f));
+        poolTime.GetRandomWall(new Vector3(0, 0, 51.47f));
     }
 }

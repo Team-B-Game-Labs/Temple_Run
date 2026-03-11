@@ -12,9 +12,18 @@ public class GameManager : MonoBehaviour
     public GameStatus status;
     public int totalCoins;
     public int currentCoins;
+    public float timer;
+
+    public bool IsJumping;
+    public bool IsSliding;
+
+    [SerializeField] public float speedWall;
+
+
+
     private void Awake()
     {
-        if(instance != null)
+        if (instance != null)
         {
             Destroy(this);
             return;
@@ -26,13 +35,23 @@ public class GameManager : MonoBehaviour
     {
         currentCoins = 0;
         status = GameStatus.GameRunning;
+        IsJumping = false;
+        IsSliding = false;
     }
 
 
     private void Update()
     {
-        if(status == GameStatus.GameRunning) { Time.timeScale = 1.0f; return; }
-        
-        else if(status == GameStatus.GamePaused) { Time.timeScale = 0f; return; }
+        timer += Time.deltaTime;
+        if (timer >= 3)
+        {
+            speedWall += 0.001f;
+            timer = 0;
+        }
+
+        if (status == GameStatus.GameRunning) { Time.timeScale = 1.0f; return; }
+
+        else if (status == GameStatus.GamePaused) { Time.timeScale = 0f; return; }
+
     }
 }

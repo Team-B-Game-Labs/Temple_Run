@@ -1,60 +1,108 @@
 using UnityEngine;
+using System.Collections; // Necessario per le Coroutine
 
+[RequireComponent(typeof(Rigidbody))]
 public class MovimentoPlayer : MonoBehaviour
 {
     [Header("Movimento Laterale")]
     [SerializeField] private float duration = 0.2f;
     [SerializeField] private float laneWidth = 2.0f;
 
-    [Header("Salto")]
-    [SerializeField] private float jumpDuration = 0.6f;
-    [SerializeField] private float jumpHeight = 2.0f;
+    [Header("Salto e Slide")]
+    [SerializeField] private float jumpForce = 7.0f;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float slideDuration = 0.7f; // Quanto dura la scivolata
 
+
+    private Rigidbody rb;
+    private CapsuleCollider col; // Riferimento al collider
     private Vector3 startPos;
     private Vector3 targetPos;
     private float moveTimer;
-    private float jumpTimer;
 
     private int currentLocation = 1;
     private bool isMoving = false;
-    private bool isJumping = false;
-    private float groundY;
+    private bool isGrounded;
+    private bool isSliding = false;
+
+    // Variabili per ripristinare il collider originale
+    private float originalHeight;
+    private Vector3 originalCenter;
 
     private void Start()
     {
-        groundY = transform.position.y;
-        startPos = transform.position;
+        rb = GetComponent<Rigidbody>();
+        col = GetComponent<CapsuleCollider>();
+
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
         targetPos = transform.position;
+
+        if (col != null)
+        {
+            originalHeight = col.height;
+            originalCenter = col.center;
+        }
     }
 
     private void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)) && !isJumping)
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f, groundLayer);
+
+        // Input Salto
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)) && isGrounded && !isSliding)
         {
-            isJumping = true;
-            jumpTimer = 0f;
+            Salto();
         }
+
+        // Input Slide
+        if (Input.GetKeyDown(KeyCode.S) && isGrounded && !isSliding)
+        {
+            StartCoroutine(SlideRoutine());
+        }
+
+        if (GameManager.instance != null)
+            GameManager.instance.IsJumping = !isGrounded;
 
         if (!isMoving)
         {
             HandleLateralInput();
         }
-
-        UpdateMovement();
     }
 
-    private void OnTriggerEnter(Collider collision)
+    private void FixedUpdate()
     {
-        if (collision != null)
+        UpdateLateralMovement();
+    }
+
+    private IEnumerator SlideRoutine()
+    {
+        isSliding = true;
+
+        // Comunica al GameManager che il player sta slidando
+        if (GameManager.instance != null)
+            GameManager.instance.IsSliding = true;
+
+        // 1. Ruota il personaggio (90 gradi sull'asse X)
+        transform.rotation = Quaternion.Euler(-90, 0, 0);
+
+        // 3. Attende la durata dello slide
+        yield return new WaitForSeconds(slideDuration);
+
+        // 4. Ripristina rotazione, collider e stato GameManager
+        transform.rotation = Quaternion.identity;
+        if (col != null)
         {
-            collision.gameObject.TryGetComponent(out ICoin coin);
-
-            coin.Collected();
-
-
+            col.height = originalHeight;
+            col.center = originalCenter;
         }
 
+        if (GameManager.instance != null)
+            GameManager.instance.IsSliding = false;
+
+        isSliding = false;
     }
+
+
     private void HandleLateralInput()
     {
         if (Input.GetKeyDown(KeyCode.A))
@@ -69,44 +117,40 @@ public class MovimentoPlayer : MonoBehaviour
         }
     }
 
-    private void UpdateMovement()
-    {
-        float currentX = transform.position.x;
-        if (isMoving)
-        {
-            moveTimer += Time.deltaTime;
-            float t = Mathf.Clamp01(moveTimer / duration);
-            currentX = Mathf.Lerp(startPos.x, targetPos.x, Mathf.SmoothStep(0, 1, t));
-
-            if (t >= 1f) isMoving = false;
-        }
-
-        float currentY = groundY;
-        if (isJumping)
-        {
-            jumpTimer += Time.deltaTime;
-            float tJump = jumpTimer / jumpDuration;
-
-            if (tJump >= 1f)
-            {
-                isJumping = false;
-                currentY = groundY;
-            }
-            else
-            {
-                currentY = groundY + (4 * jumpHeight * tJump * (1 - tJump));
-            }
-        }
-
-        transform.position = new Vector3(currentX, currentY, transform.position.z);
-    }
-
     private void SetMove(int newLocation, float targetX)
     {
         startPos = transform.position;
-        targetPos = new Vector3(targetX, groundY, transform.position.z);
+        targetPos = new Vector3(targetX, transform.position.y, transform.position.z);
         currentLocation = newLocation;
         moveTimer = 0f;
         isMoving = true;
+    }
+
+    private void UpdateLateralMovement()
+    {
+        if (isMoving)
+        {
+            moveTimer += Time.fixedDeltaTime;
+            float t = Mathf.Clamp01(moveTimer / duration);
+            float newX = Mathf.Lerp(startPos.x, targetPos.x, Mathf.SmoothStep(0, 1, t));
+
+            // Manteniamo la Y e Z attuali del Rigidbody per non interferire con gravità e salto
+            rb.MovePosition(new Vector3(newX, rb.position.y, rb.position.z));
+
+            if (t >= 1f) isMoving = false;
+        }
+    }
+
+    private void Salto()
+    {
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent(out ICoin coin))
+        {
+            coin.Collected();
+        }
     }
 }
