@@ -1,0 +1,159 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2542517917772680816
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5968529862109085101}
+  m_Layer: 0
+  m_Name: Strada_buco_monte_salto_SX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5968529862109085101
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2542517917772680816}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1745377516495133487}
+  - {fileID: 2885754864316566817}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &5647969320090836649
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5968529862109085101}
+    m_Modifications:
+    - target: {fileID: 5566901054718928506, guid: 934c9e1b6008f06438447de120fa52ad, type: 3}
+      propertyPath: m_Name
+      value: Strade_Definitive_Buco 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7380798280669614984, guid: 934c9e1b6008f06438447de120fa52ad, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7380798280669614984, guid: 934c9e1b6008f06438447de120fa52ad, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7380798280669614984, guid: 934c9e1b6008f06438447de120fa52ad, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7380798280669614984, guid: 934c9e1b6008f06438447de120fa52ad, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7380798280669614984, guid: 934c9e1b6008f06438447de120fa52ad, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7380798280669614984, guid: 934c9e1b6008f06438447de120fa52ad, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7380798280669614984, guid: 934c9e1b6008f06438447de120fa52ad, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7380798280669614984, guid: 934c9e1b6008f06438447de120fa52ad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7380798280669614984, guid: 934c9e1b6008f06438447de120fa52ad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7380798280669614984, guid: 934c9e1b6008f06438447de120fa52ad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 934c9e1b6008f06438447de120fa52ad, type: 3}
+--- !u!4 &2885754864316566817 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7380798280669614984, guid: 934c9e1b6008f06438447de120fa52ad, type: 3}
+  m_PrefabInstance: {fileID: 5647969320090836649}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8195218520165050403
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5968529862109085101}
+    m_Modifications:
+    - target: {fileID: 6670801337548265691, guid: f1dcb64f806c69447b534c0fc8d0d365, type: 3}
+      propertyPath: m_Name
+      value: Monete in fila salto
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603079236899222284, guid: f1dcb64f806c69447b534c0fc8d0d365, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603079236899222284, guid: f1dcb64f806c69447b534c0fc8d0d365, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603079236899222284, guid: f1dcb64f806c69447b534c0fc8d0d365, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603079236899222284, guid: f1dcb64f806c69447b534c0fc8d0d365, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603079236899222284, guid: f1dcb64f806c69447b534c0fc8d0d365, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603079236899222284, guid: f1dcb64f806c69447b534c0fc8d0d365, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603079236899222284, guid: f1dcb64f806c69447b534c0fc8d0d365, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603079236899222284, guid: f1dcb64f806c69447b534c0fc8d0d365, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603079236899222284, guid: f1dcb64f806c69447b534c0fc8d0d365, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603079236899222284, guid: f1dcb64f806c69447b534c0fc8d0d365, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f1dcb64f806c69447b534c0fc8d0d365, type: 3}
+--- !u!4 &1745377516495133487 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7603079236899222284, guid: f1dcb64f806c69447b534c0fc8d0d365, type: 3}
+  m_PrefabInstance: {fileID: 8195218520165050403}
+  m_PrefabAsset: {fileID: 0}
