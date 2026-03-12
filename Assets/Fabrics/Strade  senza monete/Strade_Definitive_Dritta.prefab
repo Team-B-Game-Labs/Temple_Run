@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 4678173693331102925}
   - component: {fileID: 5123922976993451101}
   - component: {fileID: 7301724084484387469}
-  - component: {fileID: 5061817311777850984}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Strada_dritta
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,27 +90,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5061817311777850984
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4995837740142850194}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 437.39758, y: 339, z: 1031.0604}
-  m_Center: {x: 0, y: -56, z: 0}
 --- !u!1 &8541603124586351222
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,7 +99,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3488629856635400473}
-  m_Layer: 0
+  - component: {fileID: 2683586520818423219}
+  m_Layer: 3
   m_Name: Strade_Definitive_Dritta
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,3 +123,24 @@ Transform:
   - {fileID: 4678173693331102925}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2683586520818423219
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8541603124586351222}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.373976, y: 4.3862014, z: 10.305965}
+  m_Center: {x: 0, y: -0.061899424, z: -0.0023174286}

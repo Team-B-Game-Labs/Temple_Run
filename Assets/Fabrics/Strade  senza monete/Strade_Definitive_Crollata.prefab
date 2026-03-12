@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1933578611960719771}
-  m_Layer: 0
+  - component: {fileID: 1094189082528703440}
+  m_Layer: 3
   m_Name: Strade_Definitive_Crollata
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,6 +33,27 @@ Transform:
   - {fileID: 7021763381035976659}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1094189082528703440
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1231649290674513309}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.7903091, y: 3.39, z: 10.31}
+  m_Center: {x: -1.2918333, y: 0.42999995, z: 0}
 --- !u!1 &7753237333726097509
 GameObject:
   m_ObjectHideFlags: 0
@@ -43,8 +65,8 @@ GameObject:
   - component: {fileID: 7021763381035976659}
   - component: {fileID: 3784772194879205871}
   - component: {fileID: 4902706272814038636}
-  - component: {fileID: 2349164514417211096}
-  m_Layer: 0
+  - component: {fileID: 3047859592282700169}
+  m_Layer: 3
   m_Name: Strada_CROLLATA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +145,7 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2349164514417211096
+--- !u!65 &3047859592282700169
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,5 +164,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 98.203445, y: 339, z: 1031.0604}
-  m_Center: {x: -101.01085, y: -54.826237, z: 0}
+  m_Size: {x: 271.48874, y: 454.57, z: 908.77545}
+  m_Center: {x: 109.56608, y: 0, z: 1.9907475}

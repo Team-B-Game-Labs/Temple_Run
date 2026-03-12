@@ -4,53 +4,96 @@ using UnityEngine;
 public class ObjectPooler : MonoBehaviour
 {
     [Header("Configurazione Prefabs")]
-    // Trascina qui tutti i tuoi diversi pezzi (Centro vuoto, Ostacolo DX, Ostacolo SX, Salto, ecc.)
-    [SerializeField] private List<GameObject> wallPrefabs = new List<GameObject>();
+    [SerializeField] private GameObject straightRoadPrefab;
+    [SerializeField] private List<GameObject> variationsPrefabs = new List<GameObject>(); // Metti qui ostacoli e CURVE
+    [SerializeField] private GameObject wallParent;
 
-    [SerializeField] private GameObject wallParent; // Il contenitore nella gerarchia
+    [Header("Parametri Strada")]
+    [SerializeField] private float stepZ = 10.3f; // Lunghezza del blocco
 
-    // Dizionario per gestire pool separate per ogni tipo di pezzo
+    // Variabili di stato per la "costruzione" della strada
+    private Vector3 nextRelativePosition = new Vector3(0, 0, 40.9f);
+    private Quaternion currentRotation = Quaternion.identity;
+    private Vector3 currentForward = Vector3.forward;
+
+    private int spawnCount = 0;
+    private int variationIndex = 0;
+    private List<GameObject> shuffledVariations = new List<GameObject>();
     private Dictionary<string, List<GameObject>> pooledObjects = new Dictionary<string, List<GameObject>>();
 
-    public GameObject GetRandomWall(Vector3 position)
+    private void Start() => ShuffleVariations();
+
+    private void ShuffleVariations()
     {
-        if (wallPrefabs.Count == 0) return null;
-
-        // 1. Sceglie un prefab a caso dalla lista degli ostacoli disponibili
-        int randomIndex = Random.Range(0, wallPrefabs.Count);
-        GameObject selectedPrefab = wallPrefabs[randomIndex];
-
-        // 2. Chiama la funzione di spawn specifica per quel prefab
-        return SpawnItemFromPool(selectedPrefab, position);
+        shuffledVariations = new List<GameObject>(variationsPrefabs);
+        for (int i = 0; i < shuffledVariations.Count; i++)
+        {
+            int randomIndex = Random.Range(i, shuffledVariations.Count);
+            GameObject temp = shuffledVariations[i];
+            shuffledVariations[i] = shuffledVariations[randomIndex];
+            shuffledVariations[randomIndex] = temp;
+        }
     }
 
-    private GameObject SpawnItemFromPool(GameObject objPrefab, Vector3 position)
+    public void GetNextWall()
     {
-        string key = objPrefab.name;
+        GameObject selectedPrefab;
 
-        // Se non esiste ancora una lista per questo specifico prefab, la crea
-        if (!pooledObjects.ContainsKey(key))
+        // 1. Selezione Prefab (Primi 5 dritti, poi varianti/curve)
+        if (spawnCount < 5)
         {
-            pooledObjects.Add(key, new List<GameObject>());
+            selectedPrefab = straightRoadPrefab;
+        }
+        else
+        {
+            selectedPrefab = shuffledVariations[variationIndex];
+            variationIndex = (variationIndex + 1) % shuffledVariations.Count;
+            if (variationIndex == 0) ShuffleVariations();
         }
 
-        List<GameObject> pool = pooledObjects[key];
+        // 2. Spawn del blocco come FIGLIO del WallParent
+        // Usiamo transform.TransformPoint per calcolare la posizione nel mondo rispetto al padre
+        Vector3 worldSpawnPos = wallParent.transform.TransformPoint(nextRelativePosition);
+        Quaternion worldRotation = wallParent.transform.rotation * currentRotation;
 
-        // Cerca un oggetto disattivato nella pool specifica
-        for (int i = 0; i < pool.Count; ++i)
+        SpawnItemFromPool(selectedPrefab, worldSpawnPos, worldRotation);
+
+        // 3. LOGICA CURVA: Controlliamo se il pezzo era una curva per cambiare i prossimi
+        // Assicurati che i tuoi prefab curva abbiano queste scritte nel nome!
+        if (selectedPrefab.name.Contains("CurvaDX"))
         {
-            if (pool[i].activeInHierarchy == false)
+            currentRotation *= Quaternion.Euler(0, 90, 0);
+        }
+        else if (selectedPrefab.name.Contains("CurvaSX"))
+        {
+            currentRotation *= Quaternion.Euler(0, -90, 0);
+        }
+
+        // 4. Aggiorna la direzione e la posizione relativa per il PROSSIMO blocco
+        currentForward = currentRotation * Vector3.forward;
+        nextRelativePosition += currentForward * stepZ;
+
+        spawnCount++;
+    }
+
+    private void SpawnItemFromPool(GameObject objPrefab, Vector3 pos, Quaternion rot)
+    {
+        string key = objPrefab.name;
+        if (!pooledObjects.ContainsKey(key)) pooledObjects.Add(key, new List<GameObject>());
+
+        foreach (GameObject g in pooledObjects[key])
+        {
+            if (!g.activeInHierarchy)
             {
-                pool[i].transform.position = position;
-                pool[i].SetActive(true);
-                return pool[i];
+                g.transform.position = pos;
+                g.transform.rotation = rot;
+                g.SetActive(true);
+                return;
             }
         }
 
-        // Se non trova oggetti liberi, ne istanzia uno nuovo di quel tipo
-        GameObject instanceObj = Instantiate(objPrefab, position, Quaternion.identity, wallParent.transform);
-        pool.Add(instanceObj);
-
-        return instanceObj;
+        GameObject newObj = Instantiate(objPrefab, pos, rot, wallParent.transform);
+        newObj.name = key;
+        pooledObjects[key].Add(newObj);
     }
 }

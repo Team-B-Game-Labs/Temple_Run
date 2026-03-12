@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5888612772442539436}
   - component: {fileID: 2868724100179921202}
   - component: {fileID: 2309829737600397600}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Strada_Storta
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,8 +110,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1031.0604, y: 340.21365, z: 1031.0603}
-  m_Center: {x: -296.18503, y: 28.224897, z: -301.89682}
+  m_Size: {x: 282.22696, y: 100, z: 283.13657}
+  m_Center: {x: -2.3451686, y: 300, z: -1.9833328}
 --- !u!1 &4149175799160555131
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,8 +122,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1915060600496949611}
   - component: {fileID: 2366461418316622176}
-  m_Layer: 0
-  m_Name: Strade_Definitive_Curva_SX
+  m_Layer: 3
+  m_Name: Strade_Definitive_CurvaSX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -164,5 +164,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3, y: 2, z: 3}
-  m_Center: {x: 0, y: 3, z: 0}
+  m_Size: {x: 10.287847, y: 2.9653406, z: 10.34549}
+  m_Center: {x: -2.9535093, y: 0.48267078, z: -3.026166}

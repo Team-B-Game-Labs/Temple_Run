@@ -7,6 +7,6 @@ public class MovimentoPavimento : MonoBehaviour
 
     private void Update()
     {
-        Wall.transform.position += (new Vector3(0, 0, -1) * GameManager.instance.speedWall);
+        Wall.transform.position += (-transform.forward * GameManager.instance.speedWall);
     }
 }
