@@ -2,13 +2,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class SceneReloader : MonoBehaviour
 {
-    GameManager gameManager;
+    
     [SerializeField] AudioClip buttonSFX;
     public void BackToMainMenu()
     {
         SoundFXManager.instance.PlaySoundFXClip(buttonSFX, transform, 1f);
         SceneManager.LoadScene(0);
-        DontDestroyOnLoad(gameManager);
+        DontDestroyOnLoad(GameManager.instance.gameObject);
     }
 
     public void Quit()
@@ -21,6 +21,8 @@ public class SceneReloader : MonoBehaviour
     {
         SoundFXManager.instance.PlaySoundFXClip(buttonSFX, transform, 1f);
         SceneManager.LoadScene(1);
-        DontDestroyOnLoad(gameManager);
+        DontDestroyOnLoad(GameManager.instance.gameObject);
     }
+
+
 }

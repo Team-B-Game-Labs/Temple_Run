@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public enum GameStatus
@@ -18,7 +19,7 @@ public class GameManager : MonoBehaviour
     public bool IsSliding;
 
     [SerializeField] public float speedWall;
-
+    public static event Action<int> onCoinCollected;
 
 
     private void Awake()
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        
         timer += Time.deltaTime;
         if (timer >= 3)
         {
@@ -53,5 +55,17 @@ public class GameManager : MonoBehaviour
 
         else if (status == GameStatus.GamePaused) { Time.timeScale = 0f; return; }
 
+    }
+
+    public void UpdateCoinCount()
+    {
+        currentCoins++;
+        onCoinCollected?.Invoke(currentCoins);
+
+        if(currentCoins>=100)
+        {
+            totalCoins += currentCoins;
+            currentCoins = 0;
+        }
     }
 }

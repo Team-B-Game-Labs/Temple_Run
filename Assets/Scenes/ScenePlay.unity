@@ -2098,6 +2098,10 @@ MonoBehaviour:
   status: 0
   totalCoins: 0
   currentCoins: 0
+  timer: 0
+  IsJumping: 0
+  IsSliding: 0
+  speedWall: 0
 --- !u!4 &479912350
 Transform:
   m_ObjectHideFlags: 0
@@ -3902,7 +3906,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 1
-  m_FillAmount: 1
+  m_FillAmount: 0.524
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -6238,10 +6242,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a51917d91f73ad47882e8e1039495d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
+  buttonSFX: {fileID: 0}
   PauseMenu: {fileID: 1091904275}
+  endPanel: {fileID: 1207646966}
+  optionsMenu: {fileID: 0}
   deathWater: {fileID: 539631341}
   deathTree: {fileID: 277393187}
   deathRoot: {fileID: 432114490}
+  moneyBar: {fileID: 461653700}
+  moneyBall: {fileID: 1197930133}
 --- !u!4 &2113666382
 Transform:
   m_ObjectHideFlags: 0

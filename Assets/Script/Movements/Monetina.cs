@@ -11,6 +11,8 @@ public class Monetina : MonoBehaviour, ICollider
         startPos = transform.localPosition;
         float randomIndex = UnityEngine.Random.Range(0, 360);
         transform.rotation = Quaternion.Euler(0, randomIndex, 0);
+        
+        
     }
 
     private void Update()
@@ -22,7 +24,7 @@ public class Monetina : MonoBehaviour, ICollider
     public void Collided()
     {
         SoundFXManager.instance.PlaySoundFXClip(coinSFX, transform, 1f);
-        GameManager.instance.currentCoins++;
+        GameManager.instance.UpdateCoinCount();
         Destroy(gameObject);
     }
 }

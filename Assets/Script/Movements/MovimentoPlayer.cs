@@ -14,6 +14,15 @@ public class MovimentoPlayer : MonoBehaviour
     [SerializeField] private float slideDuration = 0.7f; // Quanto dura la scivolata
 
 
+    [Header("SFX")]
+    [SerializeField] AudioClip[] salto;
+    [SerializeField] AudioClip atterraggio;
+    [SerializeField] AudioClip caduta;
+    [SerializeField] AudioClip colpo;
+
+
+
+
     private Rigidbody rb;
     private CapsuleCollider col; // Riferimento al collider
     private Vector3 startPos;
@@ -47,6 +56,7 @@ public class MovimentoPlayer : MonoBehaviour
     private void Update()
     {
         isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f, groundLayer);
+        
 
         // Input Salto
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)) && isGrounded && !isSliding)
@@ -143,7 +153,10 @@ public class MovimentoPlayer : MonoBehaviour
 
     private void Salto()
     {
+        int rand = Random.Range(0, salto.Length);
+        SoundFXManager.instance.PlaySoundFXClip(salto[rand], transform, 1f);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        if(isGrounded) SoundFXManager.instance.PlaySoundFXClip(atterraggio, transform, 1f);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -151,6 +164,31 @@ public class MovimentoPlayer : MonoBehaviour
         if (other.TryGetComponent(out ICollider coin))
         {
             coin.Collided();
+        }
+
+        //tutte le condizioni di morte
+        if(other.gameObject.layer == 9 && isSliding == false)
+        {
+            SoundFXManager.instance.PlaySoundFXClip(caduta, transform, 1f);
+            UIManager.instance.DeathByTree();
+        }
+
+        if(other.gameObject.layer == 7 && other.gameObject.layer == 10)
+        {
+            SoundFXManager.instance.PlaySoundFXClip(caduta, transform, 1f);
+            UIManager.instance.DeathByTree();
+        }
+
+        if (other.gameObject.layer == 6)
+        {
+            SoundFXManager.instance.PlaySoundFXClip(colpo, transform, 1f);
+            UIManager.instance.DeathByRoot();
+        }
+
+        if(other.gameObject.layer == 4)
+        {
+            SoundFXManager.instance.PlaySoundFXClip(caduta, transform, 1f);
+            UIManager.instance.DeathByWater();
         }
     }
 }

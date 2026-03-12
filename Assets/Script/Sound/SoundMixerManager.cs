@@ -9,11 +9,14 @@ public class SoundMixerManager : MonoBehaviour
     [SerializeField] private Slider sliderSFX;
     [SerializeField] private Slider sliderMusic;
 
+    const string MASTER_VOLUME = "SavedMasterVolume";
+
     private void Start()
     {
-        if(PlayerPrefs.HasKey("SavedMasterVolume"))
+        if(PlayerPrefs.HasKey(MASTER_VOLUME))
         {
-           // LoadVolume();
+           LoadVolume();
+            Debug.Log("Caricamento audio");
         }
         else
         {
@@ -45,7 +48,7 @@ public class SoundMixerManager : MonoBehaviour
 
     private void LoadVolume()
     {
-        sliderMaster.value = PlayerPrefs.GetFloat("SavedMasterVolume");
+        sliderMaster.value = PlayerPrefs.GetFloat(MASTER_VOLUME);
         sliderSFX.value = PlayerPrefs.GetFloat("SavedSFXVolume");
         sliderMusic.value = PlayerPrefs.GetFloat("SavedMusicVolume");
 
