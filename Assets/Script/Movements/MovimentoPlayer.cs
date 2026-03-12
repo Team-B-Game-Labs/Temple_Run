@@ -148,9 +148,9 @@ public class MovimentoPlayer : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out ICoin coin))
+        if (other.TryGetComponent(out ICollider coin))
         {
-            coin.Collected();
+            coin.Collided();
         }
     }
 }
