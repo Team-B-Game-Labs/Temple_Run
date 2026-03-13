@@ -11,15 +11,19 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public GameStatus status;
-    public int totalCoins;
+    public int overAllCoins;
     public int currentCoins;
+    public int totalCoins;
+    public int multiplier;
+    public float score;
+    public float meters;
     public float timer;
 
     public bool IsJumping;
     public bool IsSliding;
 
     [SerializeField] public float speedWall;
-    public static event Action<int> onCoinCollected;
+    public static event Action<int> OnCoinCollected;
 
     public int wallMovimentDirection;
 
@@ -36,17 +40,23 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        multiplier = 1;
         wallMovimentDirection = 0;
         currentCoins = 0;
+        totalCoins = 0;
         status = GameStatus.GameRunning;
         IsJumping = false;
         IsSliding = false;
+        meters = 1;
     }
 
 
     private void Update()
     {
-        
+        //gestione punteggio
+        meters += Time.deltaTime * speedWall * 100;
+        score += (meters * multiplier) * Time.deltaTime;
+
         timer += Time.deltaTime;
         if (timer >= 3)
         {
@@ -63,12 +73,16 @@ public class GameManager : MonoBehaviour
     public void UpdateCoinCount()
     {
         currentCoins++;
-        onCoinCollected?.Invoke(currentCoins);
+        totalCoins++;
+        score += 100 * multiplier;
+        OnCoinCollected?.Invoke(currentCoins);
 
         if(currentCoins>=100)
         {
+            overAllCoins += totalCoins;
             totalCoins += currentCoins;
             currentCoins = 0;
+            multiplier *= 2;
         }
     }
 }
