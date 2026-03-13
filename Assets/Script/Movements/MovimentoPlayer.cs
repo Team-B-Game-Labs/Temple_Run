@@ -153,15 +153,15 @@ public class MovimentoPlayer : MonoBehaviour
 
     private void Salto()
     {
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         int rand = Random.Range(0, salto.Length);
         SoundFXManager.instance.PlaySoundFXClip(salto[rand], transform, 1f);
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         if(isGrounded) SoundFXManager.instance.PlaySoundFXClip(atterraggio, transform, 1f);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out ICollider coin))
+        if (other.TryGetComponent(out ICollider coin)) //raccolta monete
         {
             coin.Collided();
         }
@@ -173,19 +173,19 @@ public class MovimentoPlayer : MonoBehaviour
             UIManager.instance.DeathByTree();
         }
 
-        if(other.gameObject.layer == 7 && other.gameObject.layer == 10)
+        else if(other.gameObject.layer == 7 && other.gameObject.layer == 10)
         {
             SoundFXManager.instance.PlaySoundFXClip(caduta, transform, 1f);
             UIManager.instance.DeathByTree();
         }
 
-        if (other.gameObject.layer == 6)
+        else if (other.gameObject.layer == 6)
         {
             SoundFXManager.instance.PlaySoundFXClip(colpo, transform, 1f);
             UIManager.instance.DeathByRoot();
         }
 
-        if(other.gameObject.layer == 4)
+        else if(other.gameObject.layer == 4)
         {
             SoundFXManager.instance.PlaySoundFXClip(caduta, transform, 1f);
             UIManager.instance.DeathByWater();

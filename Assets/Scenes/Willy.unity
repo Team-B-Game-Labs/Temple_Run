@@ -888,6 +888,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   slideDuration: 0.7
+  salto: []
+  atterraggio: {fileID: 0}
+  caduta: {fileID: 0}
+  colpo: {fileID: 0}
 --- !u!54 &1905038421
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1142,8 +1146,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   status: 0
-  totalCoins: 0
+  overAllCoins: 0
   currentCoins: 0
+  totalCoins: 0
+  multiplier: 0
+  score: 0
+  meters: 0
   timer: 0
   IsJumping: 0
   IsSliding: 0
