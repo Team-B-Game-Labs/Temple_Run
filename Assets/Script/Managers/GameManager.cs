@@ -57,13 +57,13 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         //gestione punteggio
-        meters += Time.deltaTime * speedWall * 100;
+        meters += Time.deltaTime * speedWall ;
         score += (meters * multiplier) * Time.deltaTime;
 
         timer += Time.deltaTime;
-        if (timer >= 3)
+        if (timer >= 4)
         {
-            speedWall += 0.001f;
+            speedWall += 0.1f;
             timer = 0;
         }
 

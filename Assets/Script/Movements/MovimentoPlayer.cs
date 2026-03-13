@@ -21,6 +21,7 @@ public class MovimentoPlayer : MonoBehaviour
     [SerializeField] AudioClip colpo;
 
     Animator anim;
+    [SerializeField] GameObject player;
 
 
     private Rigidbody rb;
@@ -40,6 +41,7 @@ public class MovimentoPlayer : MonoBehaviour
 
     private void Start()
     {
+        anim = player.GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         col = GetComponent<CapsuleCollider>();
 
@@ -61,6 +63,7 @@ public class MovimentoPlayer : MonoBehaviour
         // Input Salto
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)) && isGrounded && !isSliding)
         {
+            
             Salto();
         }
 
@@ -91,20 +94,24 @@ public class MovimentoPlayer : MonoBehaviour
         if (GameManager.instance != null)
             GameManager.instance.IsSliding = true;
 
-           // anim.SetTrigger("Slide");
-        // 1. Ruota il personaggio (90 gradi sull'asse X)
-        transform.rotation = Quaternion.Euler(-90, 0, 0);
+        
+
+        if (col != null)
+        {
+            col.height = 0.80f;
+            col.center = new Vector3(0,-0.56f,0);
+        }
+
 
         // 3. Attende la durata dello slide
         yield return new WaitForSeconds(slideDuration);
 
-        // 4. Ripristina rotazione, collider e stato GameManager
-        transform.rotation = Quaternion.identity;
         if (col != null)
         {
             col.height = originalHeight;
             col.center = originalCenter;
         }
+        
 
         if (GameManager.instance != null)
             GameManager.instance.IsSliding = false;
@@ -160,7 +167,7 @@ public class MovimentoPlayer : MonoBehaviour
                 isMoving = true;
                 break;
         }
-        
+
     }
 
     private void UpdateLateralMovement()
@@ -196,11 +203,12 @@ public class MovimentoPlayer : MonoBehaviour
 
     private void Salto()
     {
+        
         int rand = Random.Range(0, salto.Length);
         SoundFXManager.instance.PlaySoundFXClip(salto[rand], transform, 1f);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         if (isGrounded) SoundFXManager.instance.PlaySoundFXClip(atterraggio, transform, 1f);
-        anim.SetTrigger("Jump");
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -217,7 +225,7 @@ public class MovimentoPlayer : MonoBehaviour
             UIManager.instance.DeathByTree();
         }
 
-        if (other.gameObject.layer == 7 && other.gameObject.layer == 10)
+        if (other.gameObject.layer == 7 || other.gameObject.layer == 10)
         {
             SoundFXManager.instance.PlaySoundFXClip(caduta, transform, 1f);
             UIManager.instance.DeathByTree();
@@ -225,12 +233,12 @@ public class MovimentoPlayer : MonoBehaviour
 
         if (other.gameObject.layer == 6)
         {
-            if(GameManager.instance.rootHit == true)
+            if (GameManager.instance.rootHit == true)
             {
-             UIManager.instance.DeathByRoot();
+                UIManager.instance.DeathByRoot();
 
             }
-            GameManager.instance.rootHit = true; 
+            GameManager.instance.rootHit = true;
             SoundFXManager.instance.PlaySoundFXClip(colpo, transform, 1f);
 
         }
