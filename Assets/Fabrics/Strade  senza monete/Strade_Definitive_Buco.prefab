@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1326407810431276835}
   - component: {fileID: 5884241373049553256}
   - component: {fileID: 2141883251822003619}
-  m_Layer: 3
+  m_Layer: 4
   m_Name: Strada_con_buco
   m_TagString: Untagged
   m_Icon: {fileID: 0}

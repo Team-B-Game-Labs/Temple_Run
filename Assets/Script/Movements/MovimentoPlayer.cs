@@ -197,7 +197,7 @@ public class MovimentoPlayer : MonoBehaviour
     private void Salto()
     {
         int rand = Random.Range(0, salto.Length);
-        //SoundFXManager.instance.PlaySoundFXClip(salto[rand], transform, 1f);
+        SoundFXManager.instance.PlaySoundFXClip(salto[rand], transform, 1f);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         if (isGrounded) SoundFXManager.instance.PlaySoundFXClip(atterraggio, transform, 1f);
         anim.SetTrigger("Jump");
