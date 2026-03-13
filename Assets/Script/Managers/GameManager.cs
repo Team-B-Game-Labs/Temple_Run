@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     public bool IsJumping;
     public bool IsSliding;
 
+    public bool rootHit;
+
     [SerializeField] public float speedWall;
     public static event Action<int> OnCoinCollected;
 
@@ -47,6 +49,7 @@ public class GameManager : MonoBehaviour
         status = GameStatus.GameRunning;
         IsJumping = false;
         IsSliding = false;
+        rootHit = false;
         meters = 1;
     }
 

@@ -20,7 +20,7 @@ public class MovimentoPlayer : MonoBehaviour
     [SerializeField] AudioClip caduta;
     [SerializeField] AudioClip colpo;
 
-
+    Animator anim;
 
 
     private Rigidbody rb;
@@ -87,11 +87,11 @@ public class MovimentoPlayer : MonoBehaviour
     private IEnumerator SlideRoutine()
     {
         isSliding = true;
-
         // Comunica al GameManager che il player sta slidando
         if (GameManager.instance != null)
             GameManager.instance.IsSliding = true;
 
+           // anim.SetTrigger("Slide");
         // 1. Ruota il personaggio (90 gradi sull'asse X)
         transform.rotation = Quaternion.Euler(-90, 0, 0);
 
@@ -200,6 +200,7 @@ public class MovimentoPlayer : MonoBehaviour
         //SoundFXManager.instance.PlaySoundFXClip(salto[rand], transform, 1f);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         if (isGrounded) SoundFXManager.instance.PlaySoundFXClip(atterraggio, transform, 1f);
+        anim.SetTrigger("Jump");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -224,8 +225,14 @@ public class MovimentoPlayer : MonoBehaviour
 
         if (other.gameObject.layer == 6)
         {
+            if(GameManager.instance.rootHit == true)
+            {
+             UIManager.instance.DeathByRoot();
+
+            }
+            GameManager.instance.rootHit = true; 
             SoundFXManager.instance.PlaySoundFXClip(colpo, transform, 1f);
-            UIManager.instance.DeathByRoot();
+
         }
 
         if (other.gameObject.layer == 4)
