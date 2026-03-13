@@ -57,7 +57,7 @@ public class CameraMovement : MonoBehaviour
             
             transform.rotation = Quaternion.LookRotation(player.transform.position - transform.position);
 
-            if (canMove && timer >= 1f)
+            if (canMove && timer >= 0.3f)
             {
                 transform.position = Vector3.MoveTowards(transform.position, points[i].position, speed * Time.deltaTime);
 
