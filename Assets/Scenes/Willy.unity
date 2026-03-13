@@ -171,6 +171,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Strade_Definitive_Dri (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8541603124586351222, guid: edab9172c5dca2d4ea53e566d5509541, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -227,6 +231,10 @@ PrefabInstance:
     - target: {fileID: 8541603124586351222, guid: edab9172c5dca2d4ea53e566d5509541, type: 3}
       propertyPath: m_Name
       value: Strade_Definitive_Dri
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541603124586351222, guid: edab9172c5dca2d4ea53e566d5509541, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -370,37 +378,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3488629856635400473, guid: edab9172c5dca2d4ea53e566d5509541, type: 3}
   m_PrefabInstance: {fileID: 1840703365}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1293417392
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1293417393}
-  m_Layer: 0
-  m_Name: Ancora
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1293417393
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1293417392}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 20.6}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1382952330 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3488629856635400473, guid: edab9172c5dca2d4ea53e566d5509541, type: 3}
@@ -415,6 +392,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1409203996}
+  - component: {fileID: 1409203997}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
@@ -442,6 +420,19 @@ Transform:
   - {fileID: 978725424}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1409203997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409203995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f75d675a18975cb478996c94e70b1c6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MovimentoPavimento
+  Wall: {fileID: 1409203995}
 --- !u!1 &1411250498
 GameObject:
   m_ObjectHideFlags: 0
@@ -470,11 +461,11 @@ Transform:
   m_GameObject: {fileID: 1411250498}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -15.45}
+  m_LocalPosition: {x: 0, y: -3.811, z: -14.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1905038419}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1411250500
 BoxCollider:
@@ -495,7 +486,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.15, y: 1, z: 1}
+  m_Size: {x: 3.15, y: 10.23, z: 1}
   m_Center: {x: 0, y: 0, z: -0.5}
 --- !u!114 &1411250501
 MonoBehaviour:
@@ -561,7 +552,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1451292389}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f75d675a18975cb478996c94e70b1c6f, type: 3}
   m_Name: 
@@ -634,6 +625,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Strade_Definitive_Dri (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8541603124586351222, guid: edab9172c5dca2d4ea53e566d5509541, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -690,6 +685,10 @@ PrefabInstance:
     - target: {fileID: 8541603124586351222, guid: edab9172c5dca2d4ea53e566d5509541, type: 3}
       propertyPath: m_Name
       value: Strade_Definitive_Drit
+      objectReference: {fileID: 0}
+    - target: {fileID: 8541603124586351222, guid: edab9172c5dca2d4ea53e566d5509541, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -748,6 +747,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Strade_Definitive_Dritt
       objectReference: {fileID: 0}
+    - target: {fileID: 8541603124586351222, guid: edab9172c5dca2d4ea53e566d5509541, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -767,6 +770,7 @@ GameObject:
   - component: {fileID: 1905038416}
   - component: {fileID: 1905038420}
   - component: {fileID: 1905038421}
+  - component: {fileID: 1905038422}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -866,7 +870,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1411250499}
+  - {fileID: 1932275890}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1905038420
@@ -887,7 +893,11 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  slideDuration: 0.7
+  slideDuration: 2
+  salto: []
+  atterraggio: {fileID: 0}
+  caduta: {fileID: 0}
+  colpo: {fileID: 0}
 --- !u!54 &1905038421
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -915,6 +925,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 8
   m_CollisionDetection: 0
+--- !u!114 &1905038422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905038414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d560cf88b63683b45a8adc5e26a93b84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Controller
+  wallParent: {fileID: 1905038414}
+  turnSpeed: 10
 --- !u!4 &1923537526 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3488629856635400473, guid: edab9172c5dca2d4ea53e566d5509541, type: 3}
@@ -1007,11 +1031,11 @@ Transform:
   m_GameObject: {fileID: 1932275887}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2588191, y: -0, z: -0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 7, z: -5.15}
+  m_LocalPosition: {x: 0, y: 3.189, z: -5.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1905038419}
   m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
 --- !u!114 &1932275891
 MonoBehaviour:
@@ -1148,6 +1172,7 @@ MonoBehaviour:
   IsJumping: 0
   IsSliding: 0
   speedWall: 0.01
+  wallMovimentDirection: 0
 --- !u!4 &2060379246
 Transform:
   m_ObjectHideFlags: 0
@@ -1173,11 +1198,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1166961154}
-  - {fileID: 1932275890}
   - {fileID: 1905038419}
   - {fileID: 1451292391}
   - {fileID: 1409203996}
-  - {fileID: 1411250499}
   - {fileID: 2060379246}
   - {fileID: 1992914703}
-  - {fileID: 1293417393}

@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] public float speedWall;
     public static event Action<int> onCoinCollected;
 
+    public int wallMovimentDirection;
+
 
     private void Awake()
     {
@@ -34,6 +36,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        wallMovimentDirection = 0;
         currentCoins = 0;
         status = GameStatus.GameRunning;
         IsJumping = false;

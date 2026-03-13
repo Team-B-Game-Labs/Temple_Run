@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections; // Necessario per le Coroutine
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class MovimentoPlayer : MonoBehaviour
@@ -56,7 +56,7 @@ public class MovimentoPlayer : MonoBehaviour
     private void Update()
     {
         isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f, groundLayer);
-        
+
 
         // Input Salto
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)) && isGrounded && !isSliding)
@@ -129,34 +129,77 @@ public class MovimentoPlayer : MonoBehaviour
 
     private void SetMove(int newLocation, float targetX)
     {
-        startPos = transform.position;
-        targetPos = new Vector3(targetX, transform.position.y, transform.position.z);
-        currentLocation = newLocation;
-        moveTimer = 0f;
-        isMoving = true;
+        switch (GameManager.instance.wallMovimentDirection)
+        {
+            case 0:
+                startPos = transform.position;
+                targetPos = new Vector3(targetX, transform.position.y, transform.position.z);
+                currentLocation = newLocation;
+                moveTimer = 0f;
+                isMoving = true;
+                break;
+            case 1:
+                startPos = transform.position;
+                targetPos = new Vector3(transform.position.z, transform.position.y, targetX);
+                currentLocation = newLocation;
+                moveTimer = 0f;
+                isMoving = true;
+                break;
+            case 2:
+                startPos = transform.position;
+                targetPos = new Vector3(transform.position.z, transform.position.y, -targetX);
+                currentLocation = newLocation;
+                moveTimer = 0f;
+                isMoving = true;
+                break;
+            case 3:
+                startPos = transform.position;
+                targetPos = new Vector3(-targetX, transform.position.y, transform.position.z);
+                currentLocation = newLocation;
+                moveTimer = 0f;
+                isMoving = true;
+                break;
+        }
+        
     }
 
     private void UpdateLateralMovement()
     {
         if (isMoving)
         {
-            moveTimer += Time.fixedDeltaTime;
-            float t = Mathf.Clamp01(moveTimer / duration);
-            float newX = Mathf.Lerp(startPos.x, targetPos.x, Mathf.SmoothStep(0, 1, t));
+            if (GameManager.instance.wallMovimentDirection == 0 || GameManager.instance.wallMovimentDirection == 3)
+            {
 
-            // Manteniamo la Y e Z attuali del Rigidbody per non interferire con gravità e salto
-            rb.MovePosition(new Vector3(newX, rb.position.y, rb.position.z));
+                moveTimer += Time.fixedDeltaTime;
+                float t = Mathf.Clamp01(moveTimer / duration);
+                float newX = Mathf.Lerp(startPos.x, targetPos.x, Mathf.SmoothStep(0, 1, t));
 
-            if (t >= 1f) isMoving = false;
+                // Manteniamo la Y e Z attuali del Rigidbody per non interferire con gravità e salto
+                rb.MovePosition(new Vector3(newX, rb.position.y, rb.position.z));
+
+                if (t >= 1f) isMoving = false;
+            }
+            else if (GameManager.instance.wallMovimentDirection == 1 || GameManager.instance.wallMovimentDirection == 2)
+            {
+
+                moveTimer += Time.fixedDeltaTime;
+                float s = Mathf.Clamp01(moveTimer / duration);
+                float newZ = Mathf.Lerp(startPos.z, targetPos.z, Mathf.SmoothStep(0, 1, s));
+
+                // Manteniamo la Y e Z attuali del Rigidbody per non interferire con gravità e salto
+                rb.MovePosition(new Vector3(rb.position.x, rb.position.y, newZ));
+
+                if (s >= 1f) isMoving = false;
+            }
         }
     }
 
     private void Salto()
     {
         int rand = Random.Range(0, salto.Length);
-        SoundFXManager.instance.PlaySoundFXClip(salto[rand], transform, 1f);
+        //SoundFXManager.instance.PlaySoundFXClip(salto[rand], transform, 1f);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        if(isGrounded) SoundFXManager.instance.PlaySoundFXClip(atterraggio, transform, 1f);
+        if (isGrounded) SoundFXManager.instance.PlaySoundFXClip(atterraggio, transform, 1f);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -167,13 +210,13 @@ public class MovimentoPlayer : MonoBehaviour
         }
 
         //tutte le condizioni di morte
-        if(other.gameObject.layer == 9 && isSliding == false)
+        if (other.gameObject.layer == 9 && isSliding == false)
         {
             SoundFXManager.instance.PlaySoundFXClip(caduta, transform, 1f);
             UIManager.instance.DeathByTree();
         }
 
-        if(other.gameObject.layer == 7 && other.gameObject.layer == 10)
+        if (other.gameObject.layer == 7 && other.gameObject.layer == 10)
         {
             SoundFXManager.instance.PlaySoundFXClip(caduta, transform, 1f);
             UIManager.instance.DeathByTree();
@@ -185,7 +228,7 @@ public class MovimentoPlayer : MonoBehaviour
             UIManager.instance.DeathByRoot();
         }
 
-        if(other.gameObject.layer == 4)
+        if (other.gameObject.layer == 4)
         {
             SoundFXManager.instance.PlaySoundFXClip(caduta, transform, 1f);
             UIManager.instance.DeathByWater();
